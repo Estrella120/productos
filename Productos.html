@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papelería Ely - Productos</title>
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  header {
+    background-color: #6a0dad;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #6a0dad;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  button[type="submit"] {
+    background-color: #6a0dad;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #8f5aff;
+  }
+  
+  #message {
+    color: #6a0dad;
+    font-weight: bold;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #6a0dad;
+    display: inline-block;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  th {
+    background-color: #6a0dad;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .product-image {
+    max-width: 100px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Papelería Ely</h1>
+</header>
+<section id="productos">
+  <h2>Productos</h2>
+  <p>Explora nuestra selección de productos disponibles:</p>
+  
+  <div id="message"></div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Descripción</th>
+        <th>Precio Unitario ($)</th>
+        <th>Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Carpeta</td>
+        <td>Carpeta de colores variados, tamaño A4.</td>
+        <td>75.00</td>
+        <td><img class="product-image" src="carpeta.jpg" alt="Carpeta"></td>
+      </tr>
+      <tr>
+        <td>Cuaderno</td>
+        <td>Cuaderno de rayas, tapa dura, 100 hojas.</td>
+        <td>23.50</td>
+        <td><img class="product-image" src="cuaderno.jpg" alt="Cuaderno"></td>
+      </tr>
+      <tr>
+        <td>Bolígrafo</td>
+        <td>Bolígrafo azul, tinta de gel, punta fina.</td>
+        <td>6.50</td>
+        <td><img class="product-image" src="Boligrafo.webp" alt="Bolígrafo"></td>
+      </tr>
+      <tr>
+        <td>Calculadora</td>
+        <td>Calculadora básica de escritorio, solar y a batería.</td>
+        <td>130.00</td>
+        <td><img class="product-image" src="calculadora.jpg" alt="Calculadora"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <form id="pedidoForm">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br>
+    
+    <label for="producto">Producto:</label>
+    <select id="producto" name="producto" onchange="actualizarPrecio()">
+      <option value="carpeta">Carpeta</option>
+      <option value="cuaderno">Cuaderno</option>
+      <option value="boligrafo">Bolígrafo</option>
+      <option value="calculadora">Calculadora</option>
+    </select><br>
+    
+    <label for="precio">Precio Unitario ($):</label>
+    <input type="text" id="precio" name="precio" readonly><br>
+    
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" name="cantidad" min="1" required onchange="calcularTotal()"><br>
+    
+    <label for="total">Total ($):</label>
+    <input type="text" id="total" name="total" readonly><br>
+    
+    <button type="submit">Enviar pedido</button>
+  </form>
+</section>
+
+<a href="index.html">Regresar</a>
+
+<script>
+  function actualizarPrecio() {
+    var productoSeleccionado = document.getElementById("producto").value;
+    var precio;
+    
+    switch (productoSeleccionado) {
+      case "carpeta":
+        precio = 75.00;
+        break;
+      case "cuaderno":
+        precio = 23.50;
+        break;
+      case "boligrafo":
+        precio = 6.50;
+        break;
+      case "calculadora":
+        precio = 130.00;
+        break;
+      default:
+        precio = 0;
+    }
+    
+    document.getElementById("precio").value = precio.toFixed(2); 
+    calcularTotal(); // Actualizar el total cuando se cambia el precio
+  }
+  
+  function calcularTotal() {
+    var precioUnitario = parseFloat(document.getElementById("precio").value);
+    var cantidad = parseInt(document.getElementById("cantidad").value);
+    
+    if (!isNaN(precioUnitario) && !isNaN(cantidad)) {
+      var total = precioUnitario * cantidad;
+      document.getElementById("total").value = total.toFixed(2); // Mostrar total con dos decimales
+    } else {
+      document.getElementById("total").value = "";
+    }
+  }
+  
+  // Asignar precio inicial al cargar la página
+  document.addEventListener("DOMContentLoaded", function() {
+    actualizarPrecio();
+  });
+
+  // Event listener para el formulario de pedido
+  document.getElementById("pedidoForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    var nombre = document.getElementById("nombre").value;
+    var producto = document.getElementById("producto").value;
+    var cantidad = document.getElementById("cantidad").value;
+    var total = document.getElementById("total").value;
+    
+    if (nombre && producto && cantidad && total) {
+      document.getElementById("message").textContent = `Pedido enviado para ${nombre}: ${cantidad} ${producto}(s) por un total de $${total}.`;
+      document.getElementById("pedidoForm").reset(); 
+      actualizarPrecio(); // Reasignar el precio al reiniciar el formulario
+    } else {
+      document.getElementById("message").textContent = "Por favor completa todos los campos correctamente.";
+    }
+  });
+</script>
+
+</body>
+</html>
